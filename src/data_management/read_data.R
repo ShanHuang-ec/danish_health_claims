@@ -1,6 +1,6 @@
 ### Plan:
 # Create a searchable database of claim codes from SSSY (claims) excel file.
-# Translate description into English.
+# Translate description into English. Note: This uses a google translate API and has some upper limit for usage...
 
 
 rm(list=ls())
@@ -8,6 +8,8 @@ rm(list=ls())
 ### LIBRARIES
 library("readxl")
 library("tidyverse")
+library("reticulate")
+  use_virtualenv("danish_health_claims")
 
 ### LANGUAGES
 Sys.setlocale("LC_TIME", "US")
@@ -70,22 +72,33 @@ mod_data_claims_details <- mod_data_claims_details_wide %>%
 # NOTE: data_claims_details contains duplicate codes --- I don't know what that means, I drop those duplicates for now
 nodups_mod_data_specialist_type <- mod_data_specialist_type %>%
   group_by(speciale) %>%
-  filter(n()==1)
-
+  filter(n()==1) %>%
+  ungroup()
 nodups_mod_data_claims_number <- mod_data_claims_number %>%
   group_by(speciale, claims_code) %>%
-  filter(n()==1)
-
+  filter(n()==1) %>%
+  ungroup()
 nodups_mod_data_claims_details <- mod_data_claims_details %>%
   group_by(speciale, claims_code, use_year, use_value) %>%
-  filter(n()==1)
+  filter(n()==1) %>%
+  ungroup()
+
+## Translate labels to English
+source_python(args[2])
+data_specialist_type <- nodups_mod_data_specialist_type %>% rowwise() %>%
+  mutate(speciale_label_eng = translate_da_to_en_str(speciale_label))
+data_claims_number <- nodups_mod_data_claims_number
+#  %>% rowwise() %>%
+#  mutate(claims_label_short_eng = translate_da_to_en_str(claims_label_short))
+data_claims_details <- nodups_mod_data_claims_details
+#  %>% rowwise() %>%
+#  mutate(claims_label_short_eng = translate_da_to_en_str(claims_label_short)) %>%
+#  mutate(claims_label_long_eng = translate_da_to_en_str(claims_label_long))
+
 
 ## Save
-write.csv(nodups_mod_data_specialist_type, file=args[2])
-write.csv(nodups_mod_data_claims_number, file=args[3])
-write.csv(nodups_mod_data_claims_details, file=args[4])
+write.csv(data_specialist_type, file=args[3])
+write.csv(data_claims_number, file=args[4])
+write.csv(data_claims_details, file=args[5])
 
-data_specialist_type <- nodups_mod_data_specialist_type
-data_claims_number <- nodups_mod_data_claims_number
-data_claims_details <- nodups_mod_data_claims_details
-save(data_specialist_type, data_claims_number, data_claims_details, file=args[5])
+save(data_specialist_type, data_claims_number, data_claims_details, file=args[6])

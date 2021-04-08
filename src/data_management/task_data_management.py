@@ -14,7 +14,10 @@ from src.config import SRC
 #     pass
 
 
-data2 = SRC / "original_data" / "SSSY_documentation.xls"
+data2 = [
+    SRC / "original_data" / "SSSY_documentation.xls",
+    SRC / "data_management" / "translate_data.py",
+]
 
 prod2 = [
     BLD / "data" / "data_specialist_type.csv",
@@ -24,8 +27,8 @@ prod2 = [
 ]
 
 
-@pytask.mark.r([str(x.resolve()) for x in [data2, *prod2]])
-@pytask.mark.depends_on(["read_data.R", data2])
+@pytask.mark.r([str(x.resolve()) for x in [*data2, *prod2]])
+@pytask.mark.depends_on(["read_data.R", *data2])
 @pytask.mark.produces(prod2)
 def task_clean_claims_data():
     pass
