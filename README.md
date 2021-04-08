@@ -8,7 +8,8 @@ So far, this project only organizes some claims labels under the data_management
 5. Save modified data
 
 ## FIX:
-Translate other labels; one column so far, add sleep
+- Translate other labels; one column so far, add sleep
+- pre-commit hooks...
 
 ## Notes
 I would like to use this repo for modeling/simulations and to try out new tools in the future.
