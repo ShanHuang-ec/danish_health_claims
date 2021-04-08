@@ -84,3 +84,8 @@ nodups_mod_data_claims_details <- mod_data_claims_details %>%
 write.csv(nodups_mod_data_specialist_type, file=args[2])
 write.csv(nodups_mod_data_claims_number, file=args[3])
 write.csv(nodups_mod_data_claims_details, file=args[4])
+
+data_specialist_type <- nodups_mod_data_specialist_type
+data_claims_number <- nodups_mod_data_claims_number
+data_claims_details <- nodups_mod_data_claims_details
+save(data_specialist_type, data_claims_number, data_claims_details, file=args[5])

@@ -20,6 +20,7 @@ prod2 = [
     BLD / "data" / "data_specialist_type.csv",
     BLD / "data" / "data_claims_number.csv",
     BLD / "data" / "data_claims_details.csv",
+    BLD / "data" / "data_claims.RData",
 ]
 
 
