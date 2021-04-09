@@ -1,15 +1,9 @@
 # import shutil
-
 # import pytask
-
 # from src.config import BLD
 # from src.config import ROOT
 # from src.config import SRC
-
-
 # documents = ["research_paper", "research_pres_30min"]
-
-
 # @pytask.mark.latex(
 #     [
 #         "--pdf",
@@ -29,8 +23,6 @@
 # )
 # def task_compile_documents():
 #     pass
-
-
 # @pytask.mark.parametrize(
 #     "depends_on, produces",
 #     [

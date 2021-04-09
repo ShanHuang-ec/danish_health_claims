@@ -2,14 +2,12 @@
     Translate a string input from danish into english.
     conda list -e > requirements.txt #Save all the info about packages to your folder
 """
-
 # Import the library
-import pandas as pd
 from google_trans_new import google_translator
 
 
 def translate_da_to_en_str(danish_text):
-    assert isinstance(danish_text, str) == True
+    assert isinstance(danish_text, str)
 
     translator = google_translator()
     translate_text = translator.translate(danish_text, lang_src="da", lang_tgt="en")

@@ -1,12 +1,8 @@
 # import itertools
 # from pathlib import Path
-
 # import pytask
-
 # from src.config import BLD
 # from src.config import SRC
-
-
 # model_names = ["baseline", "rmconj"]
 # stages = ["first", "second"]
 # specs = [
@@ -22,8 +18,6 @@
 #     }
 #     for model, stage in itertools.product(model_names, stages)
 # ]
-
-
 # @pytask.mark.parametrize(
 #     "r, depends_on, produces",
 #     [
